@@ -1,14 +1,20 @@
 package main
 
 import (
+	"encoding/json"
 	"flag"
 	"fmt"
 	"log"
+	"os"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/elb"
 )
+
+type Result struct {
+	Data interface{} `json:"data"`
+}
 
 func main() {
 	var (
@@ -33,12 +39,24 @@ func getAllElasticLoadBalancers(awsRegion string) error {
 	svc := elb.New(session.New(), aws.NewConfig().WithRegion(awsRegion))
 	params := &elb.DescribeLoadBalancersInput{}
 	resp, err := svc.DescribeLoadBalancers(params)
+
 	if err != nil {
 		return fmt.Errorf("reading ELBs in region %q :%v", awsRegion, err)
 	}
 
+	res := []string{}
+
 	for _, elb := range resp.LoadBalancerDescriptions {
-		fmt.Println(*elb.LoadBalancerName)
+		res = append(res, "{#LOADBALANCERNAME}:LoadBalancerName="+(*elb.LoadBalancerName))
 	}
+
+	r := Result{Data: res}
+	b, err := json.Marshal(r)
+
+	if err != nil {
+		return fmt.Errorf("error marshaling", err)
+	}
+
+	os.Stdout.Write(b)
 	return nil
 }
