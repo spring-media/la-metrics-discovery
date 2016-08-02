@@ -1,6 +1,9 @@
 # metrics-discovery
-can be used in a monitoring systems like nagios or zabbix to discover items on aws 
+Can be used in a monitoring systems like nagios or zabbix to discover items on aws 
 
-#### Discover ELBs 
+#### Installing
+	go get github.com/mrsn/metrics-discovery
+
+#### Discover ELBs
 	
-	./main -aws-region eu-central-1 -discovery ELB
+	metrics-discovery -aws-region eu-central-1 -discovery ELB
