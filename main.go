@@ -47,7 +47,7 @@ func getAllElasticLoadBalancers(awsRegion string) error {
 	elbs := []string{}
 
 	for _, elb := range resp.LoadBalancerDescriptions {
-		elbs = append(elbs, "{#LOADBALANCERNAME}:LoadBalancerName="+(*elb.LoadBalancerName))
+		elbs = append(elbs, "{#LOADBALANCERNAME}:"+(*elb.LoadBalancerName))
 	}
 
 	r := Result{Data: elbs}
