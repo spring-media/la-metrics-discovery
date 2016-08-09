@@ -19,7 +19,7 @@ type Result struct {
 func main() {
 	var (
 		discovery = flag.String("discovery", "", "type of discovery. Only ELB supported right now")
-		awsRegion = flag.String("aws-region", "eu-central-1", "AWS region")
+		awsRegion = flag.String("aws.region", "eu-central-1", "AWS region")
 	)
 	flag.Parse()
 
