@@ -7,3 +7,7 @@ Can be used in a monitoring systems like nagios or zabbix to discover items on a
 #### Discover ELBs
 	
 	metrics-discovery -aws-region eu-central-1 -discovery ELB
+
+#### Discovers RDS Instances
+
+	metrics-discovery -aws-region eu-central-1 -discovery RDS
