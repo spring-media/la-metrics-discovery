@@ -44,10 +44,14 @@ func getAllElasticLoadBalancers(awsRegion string) error {
 		return fmt.Errorf("reading ELBs in region %q :%v", awsRegion, err)
 	}
 
-	elbs := []string{}
+	elbs := [](map[string]string){}
 
 	for _, elb := range resp.LoadBalancerDescriptions {
-		elbs = append(elbs, "{#LOADBALANCERNAME}:"+(*elb.LoadBalancerName))
+		elbName := map[string]string{
+			"{#LOADBALANCERNAME}": *elb.LoadBalancerName,
+		}
+
+		elbs = append(elbs, elbName)
 	}
 
 	r := Result{Data: elbs}
