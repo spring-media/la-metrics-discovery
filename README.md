@@ -2,7 +2,7 @@
 Can be used in a monitoring systems like nagios or zabbix to discover items on aws 
 
 #### Installing
-	go get github.com/mrsn/metrics-discovery
+	go get github.com/weltn24/metrics-discovery
 
 #### Discover ELBs
 	
