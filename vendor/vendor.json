@@ -123,6 +123,12 @@
 			"revisionTime": "2016-08-10T00:29:32Z"
 		},
 		{
+			"checksumSHA1": "Y6Db2GGfGD9LPpcJIPj8vXE8BbQ=",
+			"path": "github.com/aws/aws-sdk-go/private/protocol/restxml",
+			"revision": "b045cdd68772c8071562f745532fcc3efc9d56af",
+			"revisionTime": "2016-08-10T00:29:32Z"
+		},
+		{
 			"checksumSHA1": "eUEkjyMPAuekKBE4ou+nM9tXEas=",
 			"path": "github.com/aws/aws-sdk-go/private/protocol/xml/xmlutil",
 			"revision": "b045cdd68772c8071562f745532fcc3efc9d56af",
@@ -131,6 +137,12 @@
 		{
 			"checksumSHA1": "Eo9yODN5U99BK0pMzoqnBm7PCrY=",
 			"path": "github.com/aws/aws-sdk-go/private/waiter",
+			"revision": "b045cdd68772c8071562f745532fcc3efc9d56af",
+			"revisionTime": "2016-08-10T00:29:32Z"
+		},
+		{
+			"checksumSHA1": "CpWQcLIxUTtkF6NBRg0QwdeSA/k=",
+			"path": "github.com/aws/aws-sdk-go/service/cloudfront",
 			"revision": "b045cdd68772c8071562f745532fcc3efc9d56af",
 			"revisionTime": "2016-08-10T00:29:32Z"
 		},
