@@ -63,9 +63,21 @@
 			"revisionTime": "2015-11-19T13:49:14-08:00"
 		},
 		{
+			"checksumSHA1": "7lla+sckQeF18wORAGuU2fFMlp4=",
+			"path": "github.com/aws/aws-sdk-go/aws/signer/v4",
+			"revision": "b045cdd68772c8071562f745532fcc3efc9d56af",
+			"revisionTime": "2016-08-10T00:29:32Z"
+		},
+		{
 			"path": "github.com/aws/aws-sdk-go/private/endpoints",
 			"revision": "abb928e07c4108683d6b4d0b6ca08fe6bc0eee5f",
 			"revisionTime": "2015-11-19T13:49:14-08:00"
+		},
+		{
+			"checksumSHA1": "wk7EyvDaHwb5qqoOP/4d3cV0708=",
+			"path": "github.com/aws/aws-sdk-go/private/protocol",
+			"revision": "b045cdd68772c8071562f745532fcc3efc9d56af",
+			"revisionTime": "2016-08-10T00:29:32Z"
 		},
 		{
 			"path": "github.com/aws/aws-sdk-go/private/protocol/query",
@@ -103,6 +115,12 @@
 			"revisionTime": "2015-11-19T13:49:14-08:00"
 		},
 		{
+			"checksumSHA1": "abtQbJdjxwPxvt4p/X0My6FtfZI=",
+			"path": "github.com/aws/aws-sdk-go/service/rds",
+			"revision": "b045cdd68772c8071562f745532fcc3efc9d56af",
+			"revisionTime": "2016-08-10T00:29:32Z"
+		},
+		{
 			"origin": "github.com/aws/aws-sdk-go/vendor/github.com/go-ini/ini",
 			"path": "github.com/go-ini/ini",
 			"revision": "abb928e07c4108683d6b4d0b6ca08fe6bc0eee5f",
@@ -114,5 +132,6 @@
 			"revision": "abb928e07c4108683d6b4d0b6ca08fe6bc0eee5f",
 			"revisionTime": "2015-11-19T13:49:14-08:00"
 		}
-	]
+	],
+	"rootPath": "github.com/WeltN24/metrics-discovery"
 }
