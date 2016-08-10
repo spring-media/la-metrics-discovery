@@ -20,12 +20,12 @@ type Result struct {
 
 func main() {
 	var (
-		discovery = flag.String("discovery", "", "type of discovery. Only ELB, RDS and CloudFront supported right now")
-		awsRegion = flag.String("aws.region", "eu-central-1", "AWS region")
+		discoveryType = flag.String("type", "", "type of discovery. Only ELB, RDS and CloudFront supported right now")
+		awsRegion     = flag.String("aws.region", "eu-central-1", "AWS region")
 	)
 	flag.Parse()
 
-	switch *discovery {
+	switch *discoveryType {
 	case "ELB":
 		err := getAllElasticLoadBalancers(*awsRegion)
 		if err != nil {
@@ -43,7 +43,7 @@ func main() {
 		}
 
 	default:
-		log.Printf("discovery type %s not supported", *discovery)
+		log.Printf("discovery type %s not supported", *discoveryType)
 	}
 }
 
