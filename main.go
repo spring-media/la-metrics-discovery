@@ -60,7 +60,7 @@ func getAllDBInstances(awsRegion string) error {
 
 	for _, rds := range resp.DBInstances {
 		rdsIdentifier := map[string]string{
-			"{RDSIDENTIFIER}": *rds.DBInstanceIdentifier,
+			"{#RDSIDENTIFIER}": *rds.DBInstanceIdentifier,
 		}
 		rdsIdentifiers = append(rdsIdentifiers, rdsIdentifier)
 	}
@@ -89,7 +89,7 @@ func getAllCloudFrontDistributions(awsRegion string) error {
 
 	for _, dist := range resp.DistributionList.Items {
 		distId := map[string]string{
-			"{DISTID}": *dist.Id,
+			"{#DISTID}": *dist.Id,
 		}
 
 		dists = append(dists, distId)
