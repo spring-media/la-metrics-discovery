@@ -6,12 +6,12 @@ Can be used in a monitoring systems like nagios or zabbix to discover items on a
 
 #### Discover ELBs
 	
-	metrics-discovery -aws-region eu-central-1 -type ELB
+	metrics-discovery -aws.region eu-central-1 -type ELB
 
 #### Discover RDS Instances
 
-	metrics-discovery -aws-region eu-central-1 -type RDS
+	metrics-discovery -aws.region eu-central-1 -type RDS
 
 #### Discover CloudFront Distributions
 
-	metrics-discovery -aws-region us-east-1 -type CloudFront
+	metrics-discovery -aws.region us-east-1 -type CloudFront
