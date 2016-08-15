@@ -30,17 +30,17 @@ func main() {
 
 	switch *discoveryType {
 	case "ELB":
-		list, err = getAllElasticLoadBalancers(awsSession)
+		list, err = getAllElasticLoadBalancers(elb.New(awsSession))
 		if err != nil {
 			log.Fatalf("Could not descibe load balancers: %v", err)
 		}
 	case "RDS":
-		list, err = getAllDBInstances(awsSession)
+		list, err = getAllDBInstances(rds.New(awsSession))
 		if err != nil {
 			log.Fatalf("Could not describe db instances: %v", err)
 		}
 	case "CloudFront":
-		list, err = getAllCloudFrontDistributions(awsSession)
+		list, err = getAllCloudFrontDistributions(cloudfront.New(awsSession))
 		if err != nil {
 			log.Fatalf("Could not list distributions")
 		}
@@ -53,8 +53,10 @@ func main() {
 	}
 }
 
-func getAllDBInstances(awsSession *session.Session) ([]map[string]string, error) {
-	resp, err := rds.New(awsSession).DescribeDBInstances(&rds.DescribeDBInstancesInput{})
+func getAllDBInstances(rdsCli interface {
+	DescribeDBInstances(input *rds.DescribeDBInstancesInput) (*rds.DescribeDBInstancesOutput, error)
+}) ([]map[string]string, error) {
+	resp, err := rdsCli.DescribeDBInstances(&rds.DescribeDBInstancesInput{})
 	if err != nil {
 		return nil, fmt.Errorf("getting RDS instances:%v", err)
 	}
@@ -68,8 +70,10 @@ func getAllDBInstances(awsSession *session.Session) ([]map[string]string, error)
 	return rdsIdentifiers, nil
 }
 
-func getAllCloudFrontDistributions(awsSession *session.Session) ([]map[string]string, error) {
-	resp, err := cloudfront.New(awsSession).ListDistributions(&cloudfront.ListDistributionsInput{})
+func getAllCloudFrontDistributions(cloudFrontCli interface {
+	ListDistributions(*cloudfront.ListDistributionsInput) (*cloudfront.ListDistributionsOutput, error)
+}) ([]map[string]string, error) {
+	resp, err := cloudFrontCli.ListDistributions(&cloudfront.ListDistributionsInput{})
 	if err != nil {
 		return nil, fmt.Errorf("listing CloudFront distributions %v", err)
 	}
@@ -83,8 +87,10 @@ func getAllCloudFrontDistributions(awsSession *session.Session) ([]map[string]st
 	return dists, nil
 }
 
-func getAllElasticLoadBalancers(awsSession *session.Session) ([]map[string]string, error) {
-	resp, err := elb.New(awsSession).DescribeLoadBalancers(&elb.DescribeLoadBalancersInput{})
+func getAllElasticLoadBalancers(elbCli interface {
+	DescribeLoadBalancers(*elb.DescribeLoadBalancersInput) (*elb.DescribeLoadBalancersOutput, error)
+}) ([]map[string]string, error) {
+	resp, err := elbCli.DescribeLoadBalancers(&elb.DescribeLoadBalancersInput{})
 	if err != nil {
 		return nil, fmt.Errorf("reading ELBs:%v", err)
 	}
