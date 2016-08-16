@@ -22,124 +22,84 @@ func main() {
 	var (
 		discoveryType = flag.String("type", "", "type of discovery. Only ELB, RDS and CloudFront supported right now")
 		awsRegion     = flag.String("aws.region", "eu-central-1", "AWS region")
+		list          interface{}
+		err           error
 	)
 	flag.Parse()
+	awsSession := session.New(aws.NewConfig().WithRegion(*awsRegion))
 
 	switch *discoveryType {
 	case "ELB":
-		err := getAllElasticLoadBalancers(*awsRegion)
+		list, err = getAllElasticLoadBalancers(elb.New(awsSession))
 		if err != nil {
-			log.Printf("Could not descibe load balancers: %v", err)
+			log.Fatalf("Could not descibe load balancers: %v", err)
 		}
 	case "RDS":
-		err := getAllDBInstances(*awsRegion)
+		list, err = getAllDBInstances(rds.New(awsSession))
 		if err != nil {
-			log.Printf("Could not describe db instances: %v", err)
+			log.Fatalf("Could not describe db instances: %v", err)
 		}
 	case "CloudFront":
-		err := getAllCloudFrontDistributions(*awsRegion)
+		list, err = getAllCloudFrontDistributions(cloudfront.New(awsSession))
 		if err != nil {
-			log.Printf("Could not list distributions")
+			log.Fatalf("Could not list distributions")
 		}
-
 	default:
-		log.Printf("discovery type %s not supported", *discoveryType)
+		log.Fatalf("discovery type %s not supported", *discoveryType)
+	}
+	err = json.NewEncoder(os.Stdout).Encode(Result{Data: list})
+	if err != nil {
+		log.Fatal(err)
 	}
 }
 
-func getAllDBInstances(awsRegion string) error {
-	svc := rds.New(session.New(), aws.NewConfig().WithRegion(awsRegion))
-	params := &rds.DescribeDBInstancesInput{}
-	resp, err := svc.DescribeDBInstances(params)
-
+func getAllDBInstances(rdsCli interface {
+	DescribeDBInstances(input *rds.DescribeDBInstancesInput) (*rds.DescribeDBInstancesOutput, error)
+}) ([]map[string]string, error) {
+	resp, err := rdsCli.DescribeDBInstances(&rds.DescribeDBInstancesInput{})
 	if err != nil {
-		return fmt.Errorf("getting RDS instances in region %q:%v", awsRegion, err)
+		return nil, fmt.Errorf("getting RDS instances:%v", err)
 	}
 
-	rdsIdentifiers := [](map[string]string){}
-
+	rdsIdentifiers := make([]map[string]string, len(resp.DBInstances))
 	for _, rds := range resp.DBInstances {
-		rdsIdentifier := map[string]string{
+		rdsIdentifiers = append(rdsIdentifiers, map[string]string{
 			"{#RDSIDENTIFIER}": *rds.DBInstanceIdentifier,
-		}
-		rdsIdentifiers = append(rdsIdentifiers, rdsIdentifier)
+		})
 	}
-
-	err = toJson(&rdsIdentifiers)
-
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	return nil
+	return rdsIdentifiers, nil
 }
 
-func getAllCloudFrontDistributions(awsRegion string) error {
-	svc := cloudfront.New(session.New(), aws.NewConfig().WithRegion(awsRegion))
-
-	params := &cloudfront.ListDistributionsInput{}
-
-	resp, err := svc.ListDistributions(params)
-
+func getAllCloudFrontDistributions(cloudFrontCli interface {
+	ListDistributions(*cloudfront.ListDistributionsInput) (*cloudfront.ListDistributionsOutput, error)
+}) ([]map[string]string, error) {
+	resp, err := cloudFrontCli.ListDistributions(&cloudfront.ListDistributionsInput{})
 	if err != nil {
-		return fmt.Errorf("listing CloudFront distributions %v", err)
+		return nil, fmt.Errorf("listing CloudFront distributions %v", err)
 	}
 
-	dists := [](map[string]string){}
-
+	dists := make([]map[string]string, len(resp.DistributionList.Items))
 	for _, dist := range resp.DistributionList.Items {
-		distId := map[string]string{
+		dists = append(dists, map[string]string{
 			"{#DISTID}": *dist.Id,
-		}
-
-		dists = append(dists, distId)
+		})
 	}
-
-	err = toJson(&dists)
-
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	return nil
+	return dists, nil
 }
 
-func getAllElasticLoadBalancers(awsRegion string) error {
-	svc := elb.New(session.New(), aws.NewConfig().WithRegion(awsRegion))
-	params := &elb.DescribeLoadBalancersInput{}
-	resp, err := svc.DescribeLoadBalancers(params)
-
+func getAllElasticLoadBalancers(elbCli interface {
+	DescribeLoadBalancers(*elb.DescribeLoadBalancersInput) (*elb.DescribeLoadBalancersOutput, error)
+}) ([]map[string]string, error) {
+	resp, err := elbCli.DescribeLoadBalancers(&elb.DescribeLoadBalancersInput{})
 	if err != nil {
-		return fmt.Errorf("reading ELBs in region %q:%v", awsRegion, err)
+		return nil, fmt.Errorf("reading ELBs:%v", err)
 	}
 
-	elbs := [](map[string]string){}
-
+	elbs := make([]map[string]string, len(resp.LoadBalancerDescriptions))
 	for _, elb := range resp.LoadBalancerDescriptions {
-		elbName := map[string]string{
+		elbs = append(elbs, map[string]string{
 			"{#LOADBALANCERNAME}": *elb.LoadBalancerName,
-		}
-
-		elbs = append(elbs, elbName)
+		})
 	}
-
-	err = toJson(&elbs)
-
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	return nil
-}
-
-func toJson(descriptions *[]map[string]string) error {
-	res := Result{Data: descriptions}
-	b, err := json.Marshal(res)
-
-	if err != nil {
-		return fmt.Errorf("error marshaling", err)
-	}
-
-	os.Stdout.Write(b)
-	return nil
+	return elbs, nil
 }
