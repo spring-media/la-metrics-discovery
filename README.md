@@ -8,6 +8,10 @@ Can be used in a monitoring systems like nagios or zabbix to discover items on a
 	
 	metrics-discovery -aws.region eu-central-1 -type ELB
 
+#### Discover EC2-Instances
+
+	metrics-discovery -aws.region eu-central-1 -type EC2
+
 #### Discover RDS Instances
 
 	metrics-discovery -aws.region eu-central-1 -type RDS

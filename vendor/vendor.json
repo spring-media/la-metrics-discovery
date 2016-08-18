@@ -105,6 +105,12 @@
 			"revisionTime": "2016-08-10T00:29:32Z"
 		},
 		{
+			"checksumSHA1": "uNmSKXAF8B9HWEciW+iyUwZ99qQ=",
+			"path": "github.com/aws/aws-sdk-go/private/protocol/ec2query",
+			"revision": "b045cdd68772c8071562f745532fcc3efc9d56af",
+			"revisionTime": "2016-08-10T00:29:32Z"
+		},
+		{
 			"checksumSHA1": "isoix7lTx4qIq2zI2xFADtti5SI=",
 			"path": "github.com/aws/aws-sdk-go/private/protocol/query",
 			"revision": "b045cdd68772c8071562f745532fcc3efc9d56af",
@@ -143,6 +149,12 @@
 		{
 			"checksumSHA1": "CpWQcLIxUTtkF6NBRg0QwdeSA/k=",
 			"path": "github.com/aws/aws-sdk-go/service/cloudfront",
+			"revision": "b045cdd68772c8071562f745532fcc3efc9d56af",
+			"revisionTime": "2016-08-10T00:29:32Z"
+		},
+		{
+			"checksumSHA1": "Ao/Vq8RYiaW63HasBBPkNg/i7CM=",
+			"path": "github.com/aws/aws-sdk-go/service/ec2",
 			"revision": "b045cdd68772c8071562f745532fcc3efc9d56af",
 			"revisionTime": "2016-08-10T00:29:32Z"
 		},
