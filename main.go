@@ -10,6 +10,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/cloudfront"
+	"github.com/aws/aws-sdk-go/service/ec2"
 	"github.com/aws/aws-sdk-go/service/elb"
 	"github.com/aws/aws-sdk-go/service/rds"
 )
@@ -20,7 +21,7 @@ type Result struct {
 
 func main() {
 	var (
-		discoveryType = flag.String("type", "", "type of discovery. Only ELB, RDS and CloudFront supported right now")
+		discoveryType = flag.String("type", "", "type of discovery. EC2, ELB, RDS or CloudFront")
 		awsRegion     = flag.String("aws.region", "eu-central-1", "AWS region")
 		list          interface{}
 		err           error
@@ -35,6 +36,11 @@ func main() {
 		list, err = getAllElasticLoadBalancers(elb.New(awsSession))
 		if err != nil {
 			log.Fatalf("Could not descibe load balancers: %v", err)
+		}
+	case "EC2":
+		list, err = getAllEC2Instances(ec2.New(awsSession))
+		if err != nil {
+			log.Fatalf("Could not get ec2 instances: %v", err)
 		}
 	case "RDS":
 		list, err = getAllDBInstances(rds.New(awsSession))
@@ -55,6 +61,37 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+}
+
+func getAllEC2Instances(ec2Cli interface {
+	DescribeInstances(input *ec2.DescribeInstancesInput) (*ec2.DescribeInstancesOutput, error)
+}) ([]map[string]string, error) {
+
+	resp, err := ec2Cli.DescribeInstances(&ec2.DescribeInstancesInput{})
+
+	if err != nil {
+		return nil, fmt.Errorf("getting EC2 instances: %v", err)
+	}
+
+	ec2Identifiers := make([]map[string]string, 0, len(resp.Reservations))
+
+	for _, reservation := range resp.Reservations {
+		for _, instance := range reservation.Instances {
+			var name string
+			for _, t := range instance.Tags {
+				if *t.Key == "Name" {
+					name = *t.Value
+					break
+				}
+			}
+			ec2Identifiers = append(ec2Identifiers, map[string]string{
+				"{#INSTANCEID}":   *instance.InstanceId,
+				"{#INSTANCENAME}": name,
+			})
+		}
+
+	}
+	return ec2Identifiers, nil
 }
 
 func getAllDBInstances(rdsCli interface {
