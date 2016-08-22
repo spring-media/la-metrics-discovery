@@ -128,7 +128,8 @@ func getAllCloudFrontDistributions(cloudFrontCli interface {
 
 	for ctr, dist := range resp.DistributionList.Items {
 		dists[ctr] = map[string]string{
-			"{#DISTID}": *dist.Id,
+			"{#DISTID}":    *dist.Id,
+			"{#DISTALIAS}": *dist.Aliases.Items[0],
 		}
 	}
 
