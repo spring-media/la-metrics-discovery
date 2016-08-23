@@ -11,6 +11,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/cloudfront"
 	"github.com/aws/aws-sdk-go/service/ec2"
+	"github.com/aws/aws-sdk-go/service/ecs"
 	"github.com/aws/aws-sdk-go/service/elb"
 	"github.com/aws/aws-sdk-go/service/rds"
 )
@@ -21,7 +22,7 @@ type Result struct {
 
 func main() {
 	var (
-		discoveryType = flag.String("type", "", "type of discovery. EC2, ELB, RDS or CloudFront")
+		discoveryType = flag.String("type", "", "type of discovery. EC2, ELB, RDS, ECSClusters or CloudFront")
 		awsRegion     = flag.String("aws.region", "eu-central-1", "AWS region")
 		list          interface{}
 		err           error
@@ -52,6 +53,8 @@ func main() {
 		if err != nil {
 			log.Fatalf("Could not list distributions")
 		}
+	case "ECSClusters":
+		list, err = listECSClusters(ecs.New(awsSession))
 	default:
 		log.Fatalf("discovery type %s not supported", *discoveryType)
 	}
@@ -157,4 +160,15 @@ func getAllElasticLoadBalancers(elbCli interface {
 	}
 
 	return elbs, nil
+}
+
+func listECSClusters(ecsCli interface {
+	DescribeClusters(*ecs.DescribeClustersInput) (*ecs.DescribeClustersOutput, error)
+}) ([]map[string]string, error) {
+
+	resp, _ := ecsCli.DescribeClusters(&ecs.DescribeClustersInput{
+		Clusters: []*string{},
+	})
+
+	return nil, nil
 }
