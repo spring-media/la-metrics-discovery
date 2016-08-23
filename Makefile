@@ -1,5 +1,5 @@
 PROJECT_NAME=metrics-discovery
-VERSION=v0.6
+VERSION=v0.7
 
 all: bin
 
