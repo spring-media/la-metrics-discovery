@@ -19,3 +19,7 @@ Can be used in a monitoring systems like nagios or zabbix to discover items on a
 #### Discover CloudFront Distributions
 
 	metrics-discovery -aws.region us-east-1 -type CloudFront
+
+#### Discover Lambda functions
+
+	metrics-discovery -aws.region us-east-1 -type Lambda
