@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strings"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
@@ -13,6 +14,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/ec2"
 	"github.com/aws/aws-sdk-go/service/ecs"
 	"github.com/aws/aws-sdk-go/service/elb"
+	"github.com/aws/aws-sdk-go/service/lambda"
 	"github.com/aws/aws-sdk-go/service/rds"
 )
 
@@ -22,7 +24,7 @@ type Result struct {
 
 func main() {
 	var (
-		discoveryType = flag.String("type", "", "type of discovery. EC2, ELB, RDS, ECSClusters or CloudFront")
+		discoveryType = flag.String("type", "", "type of discovery. EC2, ELB, RDS, CloudFront, Lambda or ECSClusters")
 		awsRegion     = flag.String("aws.region", "eu-central-1", "AWS region")
 		list          interface{}
 		err           error
@@ -55,6 +57,14 @@ func main() {
 		}
 	case "ECSClusters":
 		list, err = listECSClusters(ecs.New(awsSession))
+		if err != nil {
+			log.Fatalf("Could not list ECS clusters")
+		}
+	case "Lambda":
+		list, err = getAllLambdas(lambda.New(awsSession))
+		if err != nil {
+			log.Fatalf("Could not list lambdas")
+		}
 	default:
 		log.Fatalf("discovery type %s not supported", *discoveryType)
 	}
@@ -106,14 +116,21 @@ func getAllDBInstances(rdsCli interface {
 		return nil, fmt.Errorf("getting RDS instances:%v", err)
 	}
 
-	rdsIdentifiers := make([]map[string]string, len(resp.DBInstances))
+	rdsIdentifiers := make([]map[string]string, 0, len(resp.DBInstances))
 
-	for ctr, rds := range resp.DBInstances {
+	for _, rds := range resp.DBInstances {
 
-		rdsIdentifiers[ctr] = map[string]string{
-			"{#RDSIDENTIFIER}": *rds.DBInstanceIdentifier,
-			"{#RDSDBNAME}":     *rds.DBName,
+		var dbName string
+
+		// avoiding nil pointer dereference
+		if rds.DBName != nil {
+			dbName = *rds.DBName
 		}
+
+		rdsIdentifiers = append(rdsIdentifiers, map[string]string{
+			"{#RDSIDENTIFIER}": *rds.DBInstanceIdentifier,
+			"{#RDSDBNAME}":     dbName,
+		})
 	}
 
 	return rdsIdentifiers, nil
@@ -163,12 +180,47 @@ func getAllElasticLoadBalancers(elbCli interface {
 }
 
 func listECSClusters(ecsCli interface {
-	DescribeClusters(*ecs.DescribeClustersInput) (*ecs.DescribeClustersOutput, error)
+	ListClusters(*ecs.ListClustersInput) (*ecs.ListClustersOutput, error)
 }) ([]map[string]string, error) {
 
-	resp, _ := ecsCli.DescribeClusters(&ecs.DescribeClustersInput{
-		Clusters: []*string{},
-	})
+	resp, err := ecsCli.ListClusters(&ecs.ListClustersInput{})
 
-	return nil, nil
+	if err != nil {
+		return nil, fmt.Errorf("listing ECS clusters %v", err)
+	}
+
+	clusterNames := make([]map[string]string, 0, len(resp.ClusterArns))
+
+	for _, clusterArn := range resp.ClusterArns {
+		clusterNames = append(clusterNames, map[string]string{
+			"{#CLUSTERNAME}": parseClusterName(*clusterArn),
+		})
+	}
+
+	return clusterNames, nil
+}
+
+func getAllLambdas(lambdaCli interface {
+	ListFunctions(*lambda.ListFunctionsInput) (*lambda.ListFunctionsOutput, error)
+}) ([]map[string]string, error) {
+
+	resp, err := lambdaCli.ListFunctions(&lambda.ListFunctionsInput{})
+
+	if err != nil {
+		return nil, fmt.Errorf("listing lambdas %v", err)
+	}
+
+	lambdas := make([]map[string]string, len(resp.Functions))
+
+	for ctr, lambda := range resp.Functions {
+		lambdas[ctr] = map[string]string{
+			"{#FUNCTIONNAME}": *lambda.FunctionName,
+		}
+	}
+
+	return lambdas, nil
+}
+
+func parseClusterName(clusterArn string) string {
+	return strings.SplitAfter(clusterArn, "/")[1]
 }
