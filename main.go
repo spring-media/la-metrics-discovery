@@ -12,6 +12,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/cloudfront"
 	"github.com/aws/aws-sdk-go/service/ec2"
 	"github.com/aws/aws-sdk-go/service/elb"
+	"github.com/aws/aws-sdk-go/service/lambda"
 	"github.com/aws/aws-sdk-go/service/rds"
 )
 
@@ -21,7 +22,7 @@ type Result struct {
 
 func main() {
 	var (
-		discoveryType = flag.String("type", "", "type of discovery. EC2, ELB, RDS or CloudFront")
+		discoveryType = flag.String("type", "", "type of discovery. EC2, ELB, RDS, CloudFront or Lambda")
 		awsRegion     = flag.String("aws.region", "eu-central-1", "AWS region")
 		list          interface{}
 		err           error
@@ -49,6 +50,11 @@ func main() {
 		}
 	case "CloudFront":
 		list, err = getAllCloudFrontDistributions(cloudfront.New(awsSession))
+		if err != nil {
+			log.Fatalf("Could not list distributions")
+		}
+	case "Lambda":
+		list, err = getAllLambdas(lambda.New(awsSession))
 		if err != nil {
 			log.Fatalf("Could not list distributions")
 		}
@@ -155,4 +161,25 @@ func getAllElasticLoadBalancers(elbCli interface {
 	}
 
 	return elbs, nil
+}
+
+func getAllLambdas(lambdaCli interface {
+	ListFunctions(*lambda.ListFunctionsInput) (*lambda.ListFunctionsOutput, error)
+}) ([]map[string]string, error) {
+
+	resp, err := lambdaCli.ListFunctions(&lambda.ListFunctionsInput{})
+
+	if err != nil {
+		return nil, fmt.Errorf("listing lambdas %v", err)
+	}
+
+	lambdas := make([]map[string]string, len(resp.Functions))
+
+	for ctr, lambda := range resp.Functions {
+		lambdas[ctr] = map[string]string{
+			"{#FUNCTIONNAME}": *lambda.FunctionName,
+		}
+	}
+
+	return lambdas, nil
 }
