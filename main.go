@@ -56,7 +56,7 @@ func main() {
 	case "Lambda":
 		list, err = getAllLambdas(lambda.New(awsSession))
 		if err != nil {
-			log.Fatalf("Could not list distributions")
+			log.Fatalf("Could not list lambdas")
 		}
 	default:
 		log.Fatalf("discovery type %s not supported", *discoveryType)
