@@ -8,18 +8,24 @@ Can be used in a monitoring systems like nagios or zabbix to discover items on a
 	
 	metrics-discovery -aws.region eu-central-1 -type ELB
 
-#### Discover EC2-Instances
+#### Discover EC2 instances
 
 	metrics-discovery -aws.region eu-central-1 -type EC2
 
-#### Discover RDS Instances
+#### Discover RDS instances
 
 	metrics-discovery -aws.region eu-central-1 -type RDS
 
-#### Discover CloudFront Distributions
+#### Discover CloudFront distributions
 
 	metrics-discovery -aws.region us-east-1 -type CloudFront
 
 #### Discover Lambda functions
 
-	metrics-discovery -aws.region us-east-1 -type Lambda
+	metrics-discovery -aws.region eu-central-1 -type Lambda
+
+#### Discover ECS clusters
+
+       metrics-discovery -aws.region eu-central-1 -type ECSClusters
+
+

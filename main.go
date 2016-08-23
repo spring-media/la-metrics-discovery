@@ -6,11 +6,13 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strings"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/cloudfront"
 	"github.com/aws/aws-sdk-go/service/ec2"
+	"github.com/aws/aws-sdk-go/service/ecs"
 	"github.com/aws/aws-sdk-go/service/elb"
 	"github.com/aws/aws-sdk-go/service/lambda"
 	"github.com/aws/aws-sdk-go/service/rds"
@@ -22,7 +24,7 @@ type Result struct {
 
 func main() {
 	var (
-		discoveryType = flag.String("type", "", "type of discovery. EC2, ELB, RDS, CloudFront or Lambda")
+		discoveryType = flag.String("type", "", "type of discovery. EC2, ELB, RDS, CloudFront, Lambda or ECSClusters")
 		awsRegion     = flag.String("aws.region", "eu-central-1", "AWS region")
 		list          interface{}
 		err           error
@@ -52,6 +54,11 @@ func main() {
 		list, err = getAllCloudFrontDistributions(cloudfront.New(awsSession))
 		if err != nil {
 			log.Fatalf("Could not list distributions")
+		}
+	case "ECSClusters":
+		list, err = listECSClusters(ecs.New(awsSession))
+		if err != nil {
+			log.Fatalf("Could not list ECS clusters")
 		}
 	case "Lambda":
 		list, err = getAllLambdas(lambda.New(awsSession))
@@ -172,6 +179,27 @@ func getAllElasticLoadBalancers(elbCli interface {
 	return elbs, nil
 }
 
+func listECSClusters(ecsCli interface {
+	ListClusters(*ecs.ListClustersInput) (*ecs.ListClustersOutput, error)
+}) ([]map[string]string, error) {
+
+	resp, err := ecsCli.ListClusters(&ecs.ListClustersInput{})
+
+	if err != nil {
+		return nil, fmt.Errorf("listing ECS clusters %v", err)
+	}
+
+	clusterNames := make([]map[string]string, 0, len(resp.ClusterArns))
+
+	for _, clusterArn := range resp.ClusterArns {
+		clusterNames = append(clusterNames, map[string]string{
+			"{#CLUSTERNAME}": parseClusterName(*clusterArn),
+		})
+	}
+
+	return clusterNames, nil
+}
+
 func getAllLambdas(lambdaCli interface {
 	ListFunctions(*lambda.ListFunctionsInput) (*lambda.ListFunctionsOutput, error)
 }) ([]map[string]string, error) {
@@ -191,4 +219,8 @@ func getAllLambdas(lambdaCli interface {
 	}
 
 	return lambdas, nil
+}
+
+func parseClusterName(clusterArn string) string {
+	return strings.SplitAfter(clusterArn, "/")[1]
 }
