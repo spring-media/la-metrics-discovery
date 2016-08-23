@@ -109,14 +109,21 @@ func getAllDBInstances(rdsCli interface {
 		return nil, fmt.Errorf("getting RDS instances:%v", err)
 	}
 
-	rdsIdentifiers := make([]map[string]string, len(resp.DBInstances))
+	rdsIdentifiers := make([]map[string]string, 0, len(resp.DBInstances))
 
-	for ctr, rds := range resp.DBInstances {
+	for _, rds := range resp.DBInstances {
 
-		rdsIdentifiers[ctr] = map[string]string{
-			"{#RDSIDENTIFIER}": *rds.DBInstanceIdentifier,
-			"{#RDSDBNAME}":     *rds.DBName,
+		var dbName string
+
+		// avoiding nil pointer dereference
+		if rds.DBName != nil {
+			dbName = *rds.DBName
 		}
+
+		rdsIdentifiers = append(rdsIdentifiers, map[string]string{
+			"{#RDSIDENTIFIER}": *rds.DBInstanceIdentifier,
+			"{#RDSDBNAME}":     dbName,
+		})
 	}
 
 	return rdsIdentifiers, nil
