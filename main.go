@@ -109,8 +109,10 @@ func getAllDBInstances(rdsCli interface {
 
 		rdsIdentifiers[ctr] = map[string]string{
 			"{#RDSIDENTIFIER}": *rds.DBInstanceIdentifier,
+			"{#RDSDBNAME}":     *rds.DBName,
 		}
 	}
+
 	return rdsIdentifiers, nil
 }
 
