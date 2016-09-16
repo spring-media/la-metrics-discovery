@@ -65,6 +65,11 @@ func main() {
 		if err != nil {
 			log.Fatalf("Could not list lambdas")
 		}
+	case "ECSServices":
+		list, err = listECSServices(ecs.New(awsSession))
+		if err != nil {
+			log.Fatalf("Could not list ECS services")
+		}
 	default:
 		log.Fatalf("discovery type %s not supported", *discoveryType)
 	}
@@ -198,6 +203,36 @@ func listECSClusters(ecsCli interface {
 	}
 
 	return clusterNames, nil
+}
+
+func listECSServices(ecsCli *ecs.ECS) ([]map[string]string, error) {
+
+	clusters, err := listECSClusters(ecsCli)
+
+	if err != nil {
+		return nil, fmt.Errorf("listing ECS services %v", err)
+	}
+
+	var serviceNames []map[string]string
+
+	for _, cluster := range clusters {
+		resp, err := ecsCli.ListServices(&ecs.ListServicesInput{
+			Cluster: aws.String(cluster["{#CLUSTERNAME}"]),
+		})
+
+		if err != nil {
+			return nil, fmt.Errorf("listing ECS services %v", err)
+		}
+
+		for _, serviceArn := range resp.ServiceArns {
+			serviceNames = append(serviceNames, map[string]string{
+				"{#CLUSTERNAME}": cluster["{#CLUSTERNAME}"],
+				"{#SERVICENAME}": parseClusterName(*serviceArn),
+			})
+		}
+	}
+
+	return serviceNames, nil
 }
 
 func getAllLambdas(lambdaCli interface {
