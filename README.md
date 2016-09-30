@@ -16,6 +16,10 @@ Can be used in a monitoring systems like nagios or zabbix to discover items on a
 
 	metrics-discovery -aws.region eu-central-1 -type RDS
 
+#### Discover Queues
+
+	metrics-discovery -aws.region eu-central-1 -type SQS
+
 #### Discover CloudFront distributions
 
 	metrics-discovery -aws.region us-east-1 -type CloudFront
