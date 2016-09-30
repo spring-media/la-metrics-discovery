@@ -26,6 +26,8 @@ Can be used in a monitoring systems like nagios or zabbix to discover items on a
 
 #### Discover ECS clusters
 
-       metrics-discovery -aws.region eu-central-1 -type ECSClusters
+    metrics-discovery -aws.region eu-central-1 -type ECSClusters
 
-
+#### Discover Services running on ECS
+	
+	metrics-discovery -aws.region eu-central-1 -type ECSServices

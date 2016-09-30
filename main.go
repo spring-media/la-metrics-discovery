@@ -24,7 +24,7 @@ type Result struct {
 
 func main() {
 	var (
-		discoveryType = flag.String("type", "", "type of discovery. EC2, ELB, RDS, CloudFront, Lambda or ECSClusters")
+		discoveryType = flag.String("type", "", "type of discovery. EC2, ELB, RDS, CloudFront, Lambda, ECSClusters or ECSServices")
 		awsRegion     = flag.String("aws.region", "eu-central-1", "AWS region")
 		list          interface{}
 		err           error
