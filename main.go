@@ -16,6 +16,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/elb"
 	"github.com/aws/aws-sdk-go/service/lambda"
 	"github.com/aws/aws-sdk-go/service/rds"
+	"github.com/aws/aws-sdk-go/service/sqs"
 )
 
 type Result struct {
@@ -24,7 +25,7 @@ type Result struct {
 
 func main() {
 	var (
-		discoveryType = flag.String("type", "", "type of discovery. EC2, ELB, RDS, CloudFront, Lambda, ECSClusters or ECSServices")
+		discoveryType = flag.String("type", "", "type of discovery. EC2, ELB, SQS, RDS, CloudFront, Lambda, ECSClusters or ECSServices")
 		awsRegion     = flag.String("aws.region", "eu-central-1", "AWS region")
 		list          interface{}
 		err           error
@@ -69,6 +70,11 @@ func main() {
 		list, err = listECSServices(ecs.New(awsSession))
 		if err != nil {
 			log.Fatalf("Could not list ECS services")
+		}
+	case "SQS":
+		list, err = getAllQueues(sqs.New(awsSession))
+		if err != nil {
+			log.Fatalf("Could not get Queues")
 		}
 	default:
 		log.Fatalf("discovery type %s not supported", *discoveryType)
@@ -254,6 +260,31 @@ func getAllLambdas(lambdaCli interface {
 	}
 
 	return lambdas, nil
+}
+
+func getAllQueues(sqsCli interface {
+	ListQueues(*sqs.ListQueuesInput) (*sqs.ListQueuesOutput, error)
+}) ([]map[string]string, error) {
+
+	resp, err := sqsCli.ListQueues(&sqs.ListQueuesInput{})
+
+	if err != nil {
+		return nil, fmt.Errorf("listing queues %v", err)
+	}
+
+	queueNames := make([]map[string]string, 0, len(resp.QueueUrls))
+
+	for _, queueUrl := range resp.QueueUrls {
+		parsedName := parseQueueName(*queueUrl)
+		queueNames = append(queueNames, map[string]string{"{#SQSNAME}:": parsedName})
+	}
+
+	return queueNames, nil
+}
+
+func parseQueueName(queueUrl string) string {
+	// like https://sqs.eu-central-1.amazonaws.com/1245/video-rendering
+	return strings.SplitAfter(queueUrl, "/")[4]
 }
 
 func parseClusterName(clusterArn string) string {
