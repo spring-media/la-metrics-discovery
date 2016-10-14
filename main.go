@@ -10,6 +10,7 @@ import (
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/apigateway"
 	"github.com/aws/aws-sdk-go/service/cloudfront"
 	"github.com/aws/aws-sdk-go/service/ec2"
 	"github.com/aws/aws-sdk-go/service/ecs"
@@ -75,6 +76,11 @@ func main() {
 		list, err = getAllQueues(sqs.New(awsSession))
 		if err != nil {
 			log.Fatalf("Could not get Queues")
+		}
+	case "API":
+		list, err = getAllAPIGateways(apigateway.New(awsSession))
+		if err != nil {
+			log.Fatalf("Could not get API Gateways")
 		}
 	default:
 		log.Fatalf("discovery type %s not supported", *discoveryType)
@@ -289,4 +295,23 @@ func parseQueueName(queueUrl string) string {
 
 func parseClusterName(clusterArn string) string {
 	return strings.SplitAfter(clusterArn, "/")[1]
+}
+
+func getAllAPIGateways(apiCli interface {
+	GetApiKeys(*apigateway.GetApiKeysInput) (*apigateway.GetApiKeysOutput, error)
+}) ([]map[string]string, error) {
+
+	resp, err := apiCli.GetApiKeys(&apigateway.GetApiKeysInput{})
+
+	if err != nil {
+		return nil, fmt.Errorf("listing api gateways %v", err)
+	}
+
+	apiKeys := make([]map[string]string, 0, len(resp.Items))
+
+	for _, apiKey := range resp.Items {
+		apiKeys = append(apiKeys, map[string]string{"{#APINAME}": *apiKey.Name})
+	}
+
+	return apiKeys, nil
 }

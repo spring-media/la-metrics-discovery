@@ -165,6 +165,12 @@
 			"revisionTime": "2016-08-10T00:29:32Z"
 		},
 		{
+			"checksumSHA1": "1GRM9c7nKCaKe8Mx/tTcemGKq/4=",
+			"path": "github.com/aws/aws-sdk-go/service/apigateway",
+			"revision": "1b2abe886743dc2bcc78472bfd30a15dc0a61fb8",
+			"revisionTime": "2016-10-13T20:17:12Z"
+		},
+		{
 			"checksumSHA1": "CpWQcLIxUTtkF6NBRg0QwdeSA/k=",
 			"path": "github.com/aws/aws-sdk-go/service/cloudfront",
 			"revision": "b045cdd68772c8071562f745532fcc3efc9d56af",
@@ -227,5 +233,5 @@
 			"revisionTime": "2016-08-10T00:29:32Z"
 		}
 	],
-	"rootPath": "github.com/weltn24/metrics-discovery"
+	"rootPath": "github.com/WeltN24/metrics-discovery"
 }
