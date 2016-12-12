@@ -282,7 +282,7 @@ func getAllQueues(sqsCli interface {
 
 	for _, queueUrl := range resp.QueueUrls {
 		parsedName := parseQueueName(*queueUrl)
-		queueNames = append(queueNames, map[string]string{"{#SQSNAME}:": parsedName})
+		queueNames = append(queueNames, map[string]string{"{#SQSNAME}": parsedName})
 	}
 
 	return queueNames, nil
