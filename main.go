@@ -15,6 +15,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/ec2"
 	"github.com/aws/aws-sdk-go/service/ecs"
 	"github.com/aws/aws-sdk-go/service/elb"
+	"github.com/aws/aws-sdk-go/service/elbv2"
 	"github.com/aws/aws-sdk-go/service/lambda"
 	"github.com/aws/aws-sdk-go/service/rds"
 	"github.com/aws/aws-sdk-go/service/sqs"
@@ -26,7 +27,7 @@ type Result struct {
 
 func main() {
 	var (
-		discoveryType = flag.String("type", "", "type of discovery. EC2, ELB, SQS, RDS, CloudFront, Lambda, ECSClusters or ECSServices")
+		discoveryType = flag.String("type", "", "type of discovery. EC2, ELB, ALB, SQS, RDS, CloudFront, Lambda, ECSClusters or ECSServices")
 		awsRegion     = flag.String("aws.region", "eu-central-1", "AWS region")
 		list          interface{}
 		err           error
@@ -41,6 +42,11 @@ func main() {
 		list, err = getAllElasticLoadBalancers(elb.New(awsSession))
 		if err != nil {
 			log.Fatalf("Could not descibe load balancers: %v", err)
+		}
+	case "ALB":
+		list, err = getAllApplicationLoadBalancers(elbv2.New(awsSession))
+		if err != nil {
+			log.Fatalf("Could not descibe application load balancers: %v", err)
 		}
 	case "EC2":
 		list, err = getAllEC2Instances(ec2.New(awsSession))
@@ -194,6 +200,27 @@ func getAllElasticLoadBalancers(elbCli interface {
 	}
 
 	return elbs, nil
+}
+
+func getAllApplicationLoadBalancers(albCli interface {
+	DescribeLoadBalancers(*elbv2.DescribeLoadBalancersInput) (*elbv2.DescribeLoadBalancersOutput, error)
+}) ([]map[string]string, error) {
+
+	resp, err := albCli.DescribeLoadBalancers(&elbv2.DescribeLoadBalancersInput{})
+
+	if err != nil {
+		return nil, fmt.Errorf("reading ALBs:%v", err)
+	}
+
+	albs := make([]map[string]string, len(resp.LoadBalancers))
+
+	for ctr, alb := range resp.LoadBalancers {
+		albs[ctr] = map[string]string{
+			"{#LOADBALANCERNAME}": *alb.LoadBalancerName,
+		}
+	}
+
+	return albs, nil
 }
 
 func listECSClusters(ecsCli interface {
