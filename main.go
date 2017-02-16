@@ -223,9 +223,13 @@ func getAllApplicationLoadBalancers(albCli interface {
 			return nil, fmt.Errorf("reading ALB target groups:%v", err)
 		}
 		for _, tg := range tgs {
+			splittedLBArn := strings.Split(*alb.LoadBalancerArn, "/")
+			splittedTGArn := strings.Split(*tg.TargetGroupArn, "/")
 			albTargetGroups = append(albTargetGroups, map[string]string{
-				"{#LOADBALANCERNAME}": *alb.LoadBalancerName,
-				"{#TARGEGROUP}":       tg,
+				"{#LOADBALANCERNAME}":     *alb.LoadBalancerName,
+				"{#TARGEGROUP}":           *tg.TargetGroupName,
+				"{#LOADBALANCERNAME_DIM}": fmt.Sprintf("app/%s/%s", *alb.LoadBalancerName, splittedLBArn[len(splittedLBArn)-1]),
+				"{#TARGEGROUP_DIM}":       fmt.Sprintf("targetgroup/%s/%s", *tg.TargetGroupName, splittedTGArn[len(splittedTGArn)-1]),
 			})
 			i = i + 1
 		}
@@ -236,7 +240,7 @@ func getAllApplicationLoadBalancers(albCli interface {
 
 func getTargetGroups(albCli interface {
 	DescribeTargetGroups(*elbv2.DescribeTargetGroupsInput) (*elbv2.DescribeTargetGroupsOutput, error)
-}, albArn string) ([]string, error) {
+}, albArn string) ([]*elbv2.TargetGroup, error) {
 
 	resp, err := albCli.DescribeTargetGroups(&elbv2.DescribeTargetGroupsInput{
 		LoadBalancerArn: aws.String(albArn),
@@ -246,10 +250,10 @@ func getTargetGroups(albCli interface {
 		return nil, fmt.Errorf("reading ALBs:%v", err)
 	}
 
-	targetGroups := make([]string, len(resp.TargetGroups))
+	targetGroups := make([]*elbv2.TargetGroup, len(resp.TargetGroups))
 
 	for ctr, tg := range resp.TargetGroups {
-		targetGroups[ctr] = *tg.TargetGroupName
+		targetGroups[ctr] = tg
 	}
 
 	return targetGroups, nil
