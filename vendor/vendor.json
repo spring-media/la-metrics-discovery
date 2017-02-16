@@ -3,94 +3,109 @@
 	"ignore": "test",
 	"package": [
 		{
-			"checksumSHA1": "UJsrTqhiWrWsa+pW6MPiRTFZ5/Q=",
+			"checksumSHA1": "CBkrMzvLXmGD/guNcRCzPHTO66c=",
+			"origin": "github.com/WeltN24/metrics-discovery/vendor/github.com/aws/aws-sdk-go/aws",
 			"path": "github.com/aws/aws-sdk-go/aws",
-			"revision": "b045cdd68772c8071562f745532fcc3efc9d56af",
-			"revisionTime": "2016-08-10T00:29:32Z"
+			"revision": "4590e9b51cd6698144a025a75608fa7a90752d5d",
+			"revisionTime": "2017-02-03T07:15:09Z"
 		},
 		{
 			"checksumSHA1": "Y9W+4GimK4Fuxq+vyIskVYFRnX4=",
+			"origin": "github.com/WeltN24/metrics-discovery/vendor/github.com/aws/aws-sdk-go/aws/awserr",
 			"path": "github.com/aws/aws-sdk-go/aws/awserr",
-			"revision": "b045cdd68772c8071562f745532fcc3efc9d56af",
-			"revisionTime": "2016-08-10T00:29:32Z"
+			"revision": "4590e9b51cd6698144a025a75608fa7a90752d5d",
+			"revisionTime": "2017-02-03T07:15:09Z"
 		},
 		{
-			"checksumSHA1": "dkfyy7aRNZ6BmUZ4ZdLIcMMXiPA=",
+			"checksumSHA1": "yyYr41HZ1Aq0hWc3J5ijXwYEcac=",
+			"origin": "github.com/WeltN24/metrics-discovery/vendor/github.com/aws/aws-sdk-go/aws/awsutil",
 			"path": "github.com/aws/aws-sdk-go/aws/awsutil",
-			"revision": "b045cdd68772c8071562f745532fcc3efc9d56af",
-			"revisionTime": "2016-08-10T00:29:32Z"
+			"revision": "4590e9b51cd6698144a025a75608fa7a90752d5d",
+			"revisionTime": "2017-02-03T07:15:09Z"
 		},
 		{
-			"checksumSHA1": "RsYlRfQceaAgqjIrExwNsb/RBEM=",
+			"checksumSHA1": "7cQU8tU9hBgsG23XZmko1GePqjQ=",
+			"origin": "github.com/WeltN24/metrics-discovery/vendor/github.com/aws/aws-sdk-go/aws/client",
 			"path": "github.com/aws/aws-sdk-go/aws/client",
-			"revision": "b045cdd68772c8071562f745532fcc3efc9d56af",
-			"revisionTime": "2016-08-10T00:29:32Z"
+			"revision": "4590e9b51cd6698144a025a75608fa7a90752d5d",
+			"revisionTime": "2017-02-03T07:15:09Z"
 		},
 		{
 			"checksumSHA1": "ieAJ+Cvp/PKv1LpUEnUXpc3OI6E=",
+			"origin": "github.com/WeltN24/metrics-discovery/vendor/github.com/aws/aws-sdk-go/aws/client/metadata",
 			"path": "github.com/aws/aws-sdk-go/aws/client/metadata",
-			"revision": "b045cdd68772c8071562f745532fcc3efc9d56af",
-			"revisionTime": "2016-08-10T00:29:32Z"
+			"revision": "4590e9b51cd6698144a025a75608fa7a90752d5d",
+			"revisionTime": "2017-02-03T07:15:09Z"
 		},
 		{
-			"checksumSHA1": "gNWirlrTfSLbOe421hISBAhTqa4=",
+			"checksumSHA1": "Fl8vRSCY0MbM04cmiz/0MID+goA=",
+			"origin": "github.com/WeltN24/metrics-discovery/vendor/github.com/aws/aws-sdk-go/aws/corehandlers",
 			"path": "github.com/aws/aws-sdk-go/aws/corehandlers",
-			"revision": "b045cdd68772c8071562f745532fcc3efc9d56af",
-			"revisionTime": "2016-08-10T00:29:32Z"
+			"revision": "4590e9b51cd6698144a025a75608fa7a90752d5d",
+			"revisionTime": "2017-02-03T07:15:09Z"
 		},
 		{
-			"checksumSHA1": "dNZNaOPfBPnzE2CBnfhXXZ9g9jU=",
+			"checksumSHA1": "zu5C95rmCZff6NYZb62lEaT5ibE=",
+			"origin": "github.com/WeltN24/metrics-discovery/vendor/github.com/aws/aws-sdk-go/aws/credentials",
 			"path": "github.com/aws/aws-sdk-go/aws/credentials",
-			"revision": "b045cdd68772c8071562f745532fcc3efc9d56af",
-			"revisionTime": "2016-08-10T00:29:32Z"
+			"revision": "4590e9b51cd6698144a025a75608fa7a90752d5d",
+			"revisionTime": "2017-02-03T07:15:09Z"
 		},
 		{
-			"checksumSHA1": "KQiUK/zr3mqnAXD7x/X55/iNme0=",
+			"checksumSHA1": "u3GOAJLmdvbuNUeUEcZSEAOeL/0=",
+			"origin": "github.com/WeltN24/metrics-discovery/vendor/github.com/aws/aws-sdk-go/aws/credentials/ec2rolecreds",
 			"path": "github.com/aws/aws-sdk-go/aws/credentials/ec2rolecreds",
-			"revision": "b045cdd68772c8071562f745532fcc3efc9d56af",
-			"revisionTime": "2016-08-10T00:29:32Z"
+			"revision": "4590e9b51cd6698144a025a75608fa7a90752d5d",
+			"revisionTime": "2017-02-03T07:15:09Z"
 		},
 		{
 			"checksumSHA1": "NUJUTWlc1sV8b7WjfiYc4JZbXl0=",
+			"origin": "github.com/WeltN24/metrics-discovery/vendor/github.com/aws/aws-sdk-go/aws/credentials/endpointcreds",
 			"path": "github.com/aws/aws-sdk-go/aws/credentials/endpointcreds",
-			"revision": "b045cdd68772c8071562f745532fcc3efc9d56af",
-			"revisionTime": "2016-08-10T00:29:32Z"
+			"revision": "4590e9b51cd6698144a025a75608fa7a90752d5d",
+			"revisionTime": "2017-02-03T07:15:09Z"
 		},
 		{
 			"checksumSHA1": "4Ipx+5xN0gso+cENC2MHMWmQlR4=",
+			"origin": "github.com/WeltN24/metrics-discovery/vendor/github.com/aws/aws-sdk-go/aws/credentials/stscreds",
 			"path": "github.com/aws/aws-sdk-go/aws/credentials/stscreds",
-			"revision": "b045cdd68772c8071562f745532fcc3efc9d56af",
-			"revisionTime": "2016-08-10T00:29:32Z"
+			"revision": "4590e9b51cd6698144a025a75608fa7a90752d5d",
+			"revisionTime": "2017-02-03T07:15:09Z"
 		},
 		{
-			"checksumSHA1": "dVqXFA18tta86y9KIfBqejJRI8Q=",
+			"checksumSHA1": "lqh3fG7wCochvB4iHAZJuhhEJW0=",
+			"origin": "github.com/WeltN24/metrics-discovery/vendor/github.com/aws/aws-sdk-go/aws/defaults",
 			"path": "github.com/aws/aws-sdk-go/aws/defaults",
-			"revision": "b045cdd68772c8071562f745532fcc3efc9d56af",
-			"revisionTime": "2016-08-10T00:29:32Z"
+			"revision": "4590e9b51cd6698144a025a75608fa7a90752d5d",
+			"revisionTime": "2017-02-03T07:15:09Z"
 		},
 		{
-			"checksumSHA1": "U0SthWum+t9ACanK7SDJOg3dO6M=",
+			"checksumSHA1": "/EXbk/z2TWjWc1Hvb4QYs3Wmhb8=",
+			"origin": "github.com/WeltN24/metrics-discovery/vendor/github.com/aws/aws-sdk-go/aws/ec2metadata",
 			"path": "github.com/aws/aws-sdk-go/aws/ec2metadata",
-			"revision": "b045cdd68772c8071562f745532fcc3efc9d56af",
-			"revisionTime": "2016-08-10T00:29:32Z"
+			"revision": "4590e9b51cd6698144a025a75608fa7a90752d5d",
+			"revisionTime": "2017-02-03T07:15:09Z"
 		},
 		{
-			"checksumSHA1": "NyUg1P8ZS/LHAAQAk/4C5O4X3og=",
+			"checksumSHA1": "M78rTxU55Qagqr3MYj91im2031E=",
+			"origin": "github.com/WeltN24/metrics-discovery/vendor/github.com/aws/aws-sdk-go/aws/request",
 			"path": "github.com/aws/aws-sdk-go/aws/request",
-			"revision": "b045cdd68772c8071562f745532fcc3efc9d56af",
-			"revisionTime": "2016-08-10T00:29:32Z"
+			"revision": "4590e9b51cd6698144a025a75608fa7a90752d5d",
+			"revisionTime": "2017-02-03T07:15:09Z"
 		},
 		{
-			"checksumSHA1": "3lM6w/T1HzbnfvWZEnqNXbxTSTI=",
+			"checksumSHA1": "/qrYhYWKtQA7Rxthy4YP8EnfIn8=",
+			"origin": "github.com/WeltN24/metrics-discovery/vendor/github.com/aws/aws-sdk-go/aws/session",
 			"path": "github.com/aws/aws-sdk-go/aws/session",
-			"revision": "b045cdd68772c8071562f745532fcc3efc9d56af",
-			"revisionTime": "2016-08-10T00:29:32Z"
+			"revision": "4590e9b51cd6698144a025a75608fa7a90752d5d",
+			"revisionTime": "2017-02-03T07:15:09Z"
 		},
 		{
-			"checksumSHA1": "7lla+sckQeF18wORAGuU2fFMlp4=",
+			"checksumSHA1": "0FvPLvkBUpTElfUc/FZtPsJfuV0=",
+			"origin": "github.com/WeltN24/metrics-discovery/vendor/github.com/aws/aws-sdk-go/aws/signer/v4",
 			"path": "github.com/aws/aws-sdk-go/aws/signer/v4",
-			"revision": "b045cdd68772c8071562f745532fcc3efc9d56af",
-			"revisionTime": "2016-08-10T00:29:32Z"
+			"revision": "4590e9b51cd6698144a025a75608fa7a90752d5d",
+			"revisionTime": "2017-02-03T07:15:09Z"
 		},
 		{
 			"checksumSHA1": "sgft7A0lRCVD7QBogydg46lr3NM=",
@@ -100,137 +115,157 @@
 		},
 		{
 			"checksumSHA1": "wk7EyvDaHwb5qqoOP/4d3cV0708=",
+			"origin": "github.com/WeltN24/metrics-discovery/vendor/github.com/aws/aws-sdk-go/private/protocol",
 			"path": "github.com/aws/aws-sdk-go/private/protocol",
-			"revision": "b045cdd68772c8071562f745532fcc3efc9d56af",
-			"revisionTime": "2016-08-10T00:29:32Z"
+			"revision": "4590e9b51cd6698144a025a75608fa7a90752d5d",
+			"revisionTime": "2017-02-03T07:15:09Z"
 		},
 		{
-			"checksumSHA1": "uNmSKXAF8B9HWEciW+iyUwZ99qQ=",
+			"checksumSHA1": "1QmQ3FqV37w0Zi44qv8pA1GeR0A=",
+			"origin": "github.com/WeltN24/metrics-discovery/vendor/github.com/aws/aws-sdk-go/private/protocol/ec2query",
 			"path": "github.com/aws/aws-sdk-go/private/protocol/ec2query",
-			"revision": "b045cdd68772c8071562f745532fcc3efc9d56af",
-			"revisionTime": "2016-08-10T00:29:32Z"
+			"revision": "4590e9b51cd6698144a025a75608fa7a90752d5d",
+			"revisionTime": "2017-02-03T07:15:09Z"
 		},
 		{
-			"checksumSHA1": "L7xWYwx0jNQnzlYHwBS+1q6DcCI=",
+			"checksumSHA1": "O6hcK24yI6w7FA+g4Pbr+eQ7pys=",
+			"origin": "github.com/WeltN24/metrics-discovery/vendor/github.com/aws/aws-sdk-go/private/protocol/json/jsonutil",
 			"path": "github.com/aws/aws-sdk-go/private/protocol/json/jsonutil",
-			"revision": "1f24fa1f3e1eabad0d613513d2adf3c4ec58e667",
-			"revisionTime": "2016-08-19T17:24:57Z"
+			"revision": "4590e9b51cd6698144a025a75608fa7a90752d5d",
+			"revisionTime": "2017-02-03T07:15:09Z"
 		},
 		{
-			"checksumSHA1": "H9TymcQkQnXSXSVfjggiiS4bpzM=",
+			"checksumSHA1": "R00RL5jJXRYq1iiK1+PGvMfvXyM=",
+			"origin": "github.com/WeltN24/metrics-discovery/vendor/github.com/aws/aws-sdk-go/private/protocol/jsonrpc",
 			"path": "github.com/aws/aws-sdk-go/private/protocol/jsonrpc",
-			"revision": "1f24fa1f3e1eabad0d613513d2adf3c4ec58e667",
-			"revisionTime": "2016-08-19T17:24:57Z"
+			"revision": "4590e9b51cd6698144a025a75608fa7a90752d5d",
+			"revisionTime": "2017-02-03T07:15:09Z"
 		},
 		{
-			"checksumSHA1": "isoix7lTx4qIq2zI2xFADtti5SI=",
+			"checksumSHA1": "ZqY5RWavBLWTo6j9xqdyBEaNFRk=",
+			"origin": "github.com/WeltN24/metrics-discovery/vendor/github.com/aws/aws-sdk-go/private/protocol/query",
 			"path": "github.com/aws/aws-sdk-go/private/protocol/query",
-			"revision": "b045cdd68772c8071562f745532fcc3efc9d56af",
-			"revisionTime": "2016-08-10T00:29:32Z"
+			"revision": "4590e9b51cd6698144a025a75608fa7a90752d5d",
+			"revisionTime": "2017-02-03T07:15:09Z"
 		},
 		{
-			"checksumSHA1": "5xzix1R8prUyWxgLnzUQoxTsfik=",
+			"checksumSHA1": "hqTEmgtchF9SwVTW0IQId2eLUKM=",
+			"origin": "github.com/WeltN24/metrics-discovery/vendor/github.com/aws/aws-sdk-go/private/protocol/query/queryutil",
 			"path": "github.com/aws/aws-sdk-go/private/protocol/query/queryutil",
-			"revision": "b045cdd68772c8071562f745532fcc3efc9d56af",
-			"revisionTime": "2016-08-10T00:29:32Z"
+			"revision": "4590e9b51cd6698144a025a75608fa7a90752d5d",
+			"revisionTime": "2017-02-03T07:15:09Z"
 		},
 		{
-			"checksumSHA1": "TW/7U+/8ormL7acf6z2rv2hDD+s=",
+			"checksumSHA1": "szZSLm3BlYkL3vqlZhNAlYk8iwM=",
+			"origin": "github.com/WeltN24/metrics-discovery/vendor/github.com/aws/aws-sdk-go/private/protocol/rest",
 			"path": "github.com/aws/aws-sdk-go/private/protocol/rest",
-			"revision": "b045cdd68772c8071562f745532fcc3efc9d56af",
-			"revisionTime": "2016-08-10T00:29:32Z"
+			"revision": "4590e9b51cd6698144a025a75608fa7a90752d5d",
+			"revisionTime": "2017-02-03T07:15:09Z"
 		},
 		{
-			"checksumSHA1": "oUOTWZIpPJiGjc9p/hntdBDvS10=",
+			"checksumSHA1": "Rpu8KBtHZgvhkwHxUfaky+qW+G4=",
+			"origin": "github.com/WeltN24/metrics-discovery/vendor/github.com/aws/aws-sdk-go/private/protocol/restjson",
 			"path": "github.com/aws/aws-sdk-go/private/protocol/restjson",
-			"revision": "1f24fa1f3e1eabad0d613513d2adf3c4ec58e667",
-			"revisionTime": "2016-08-19T17:24:57Z"
+			"revision": "4590e9b51cd6698144a025a75608fa7a90752d5d",
+			"revisionTime": "2017-02-03T07:15:09Z"
 		},
 		{
-			"checksumSHA1": "Y6Db2GGfGD9LPpcJIPj8vXE8BbQ=",
+			"checksumSHA1": "ODo+ko8D6unAxZuN1jGzMcN4QCc=",
+			"origin": "github.com/WeltN24/metrics-discovery/vendor/github.com/aws/aws-sdk-go/private/protocol/restxml",
 			"path": "github.com/aws/aws-sdk-go/private/protocol/restxml",
-			"revision": "b045cdd68772c8071562f745532fcc3efc9d56af",
-			"revisionTime": "2016-08-10T00:29:32Z"
+			"revision": "4590e9b51cd6698144a025a75608fa7a90752d5d",
+			"revisionTime": "2017-02-03T07:15:09Z"
 		},
 		{
-			"checksumSHA1": "eUEkjyMPAuekKBE4ou+nM9tXEas=",
+			"checksumSHA1": "lZ1z4xAbT8euCzKoAsnEYic60VE=",
+			"origin": "github.com/WeltN24/metrics-discovery/vendor/github.com/aws/aws-sdk-go/private/protocol/xml/xmlutil",
 			"path": "github.com/aws/aws-sdk-go/private/protocol/xml/xmlutil",
-			"revision": "b045cdd68772c8071562f745532fcc3efc9d56af",
-			"revisionTime": "2016-08-10T00:29:32Z"
+			"revision": "4590e9b51cd6698144a025a75608fa7a90752d5d",
+			"revisionTime": "2017-02-03T07:15:09Z"
 		},
 		{
 			"checksumSHA1": "Eo9yODN5U99BK0pMzoqnBm7PCrY=",
+			"origin": "github.com/WeltN24/metrics-discovery/vendor/github.com/aws/aws-sdk-go/private/waiter",
 			"path": "github.com/aws/aws-sdk-go/private/waiter",
-			"revision": "b045cdd68772c8071562f745532fcc3efc9d56af",
-			"revisionTime": "2016-08-10T00:29:32Z"
+			"revision": "4590e9b51cd6698144a025a75608fa7a90752d5d",
+			"revisionTime": "2017-02-03T07:15:09Z"
 		},
 		{
-			"checksumSHA1": "1GRM9c7nKCaKe8Mx/tTcemGKq/4=",
+			"checksumSHA1": "ygS1AtvAaYa1JHsccugtZUlxnxo=",
+			"origin": "github.com/WeltN24/metrics-discovery/vendor/github.com/aws/aws-sdk-go/service/apigateway",
 			"path": "github.com/aws/aws-sdk-go/service/apigateway",
-			"revision": "1b2abe886743dc2bcc78472bfd30a15dc0a61fb8",
-			"revisionTime": "2016-10-13T20:17:12Z"
+			"revision": "4590e9b51cd6698144a025a75608fa7a90752d5d",
+			"revisionTime": "2017-02-03T07:15:09Z"
 		},
 		{
-			"checksumSHA1": "CpWQcLIxUTtkF6NBRg0QwdeSA/k=",
+			"checksumSHA1": "FKms6qE/E3ZLLV90G877CrXJwpk=",
+			"origin": "github.com/WeltN24/metrics-discovery/vendor/github.com/aws/aws-sdk-go/service/cloudfront",
 			"path": "github.com/aws/aws-sdk-go/service/cloudfront",
-			"revision": "b045cdd68772c8071562f745532fcc3efc9d56af",
-			"revisionTime": "2016-08-10T00:29:32Z"
+			"revision": "4590e9b51cd6698144a025a75608fa7a90752d5d",
+			"revisionTime": "2017-02-03T07:15:09Z"
 		},
 		{
-			"checksumSHA1": "Ao/Vq8RYiaW63HasBBPkNg/i7CM=",
+			"checksumSHA1": "uCGLl0X4oRuWBAeM59aTVI/gELs=",
+			"origin": "github.com/WeltN24/metrics-discovery/vendor/github.com/aws/aws-sdk-go/service/ec2",
 			"path": "github.com/aws/aws-sdk-go/service/ec2",
-			"revision": "b045cdd68772c8071562f745532fcc3efc9d56af",
-			"revisionTime": "2016-08-10T00:29:32Z"
+			"revision": "4590e9b51cd6698144a025a75608fa7a90752d5d",
+			"revisionTime": "2017-02-03T07:15:09Z"
 		},
 		{
-			"checksumSHA1": "sHPoLMWXO5tM63ipuxVXduuRypI=",
+			"checksumSHA1": "UFpKfwRxhzQk3pCbBrBa2RsPL24=",
+			"origin": "github.com/WeltN24/metrics-discovery/vendor/github.com/aws/aws-sdk-go/service/ecs",
 			"path": "github.com/aws/aws-sdk-go/service/ecs",
-			"revision": "b045cdd68772c8071562f745532fcc3efc9d56af",
-			"revisionTime": "2016-08-10T00:29:32Z"
+			"revision": "4590e9b51cd6698144a025a75608fa7a90752d5d",
+			"revisionTime": "2017-02-03T07:15:09Z"
 		},
 		{
-			"checksumSHA1": "1c9xsISLQWKSrORIpdokCCWCe2M=",
+			"checksumSHA1": "BjzlDfZp1UvDoFfFnkwBxJxtylg=",
+			"origin": "github.com/WeltN24/metrics-discovery/vendor/github.com/aws/aws-sdk-go/service/elb",
 			"path": "github.com/aws/aws-sdk-go/service/elb",
-			"revision": "b045cdd68772c8071562f745532fcc3efc9d56af",
-			"revisionTime": "2016-08-10T00:29:32Z"
+			"revision": "4590e9b51cd6698144a025a75608fa7a90752d5d",
+			"revisionTime": "2017-02-03T07:15:09Z"
 		},
 		{
-			"checksumSHA1": "Qpi347xz5FIQISq73dZSdIf47AU=",
+			"checksumSHA1": "8kUY3AExG/gcAJ2I2a5RCSoxx5I=",
+			"origin": "github.com/WeltN24/metrics-discovery/vendor/github.com/aws/aws-sdk-go/service/lambda",
 			"path": "github.com/aws/aws-sdk-go/service/lambda",
-			"revision": "1f24fa1f3e1eabad0d613513d2adf3c4ec58e667",
-			"revisionTime": "2016-08-19T17:24:57Z"
+			"revision": "4590e9b51cd6698144a025a75608fa7a90752d5d",
+			"revisionTime": "2017-02-03T07:15:09Z"
 		},
 		{
-			"checksumSHA1": "abtQbJdjxwPxvt4p/X0My6FtfZI=",
+			"checksumSHA1": "M5FOT9uK1HSNypXWS8yVyt2tTWc=",
+			"origin": "github.com/WeltN24/metrics-discovery/vendor/github.com/aws/aws-sdk-go/service/rds",
 			"path": "github.com/aws/aws-sdk-go/service/rds",
-			"revision": "b045cdd68772c8071562f745532fcc3efc9d56af",
-			"revisionTime": "2016-08-10T00:29:32Z"
+			"revision": "4590e9b51cd6698144a025a75608fa7a90752d5d",
+			"revisionTime": "2017-02-03T07:15:09Z"
 		},
 		{
-			"checksumSHA1": "oLAlquYlQzgYFS9ochS/iQ9+uXY=",
+			"checksumSHA1": "pMyhp8ffTMnHDoF+Wu0rcvhVoNE=",
+			"origin": "github.com/WeltN24/metrics-discovery/vendor/github.com/aws/aws-sdk-go/service/sqs",
 			"path": "github.com/aws/aws-sdk-go/service/sqs",
-			"revision": "b045cdd68772c8071562f745532fcc3efc9d56af",
-			"revisionTime": "2016-08-10T00:29:32Z"
+			"revision": "4590e9b51cd6698144a025a75608fa7a90752d5d",
+			"revisionTime": "2017-02-03T07:15:09Z"
 		},
 		{
-			"checksumSHA1": "nH/itbdeFHpl4ysegdtgww9bFSA=",
+			"checksumSHA1": "Knj17ZMPWkGYTm2hZxEgnuboMM4=",
+			"origin": "github.com/WeltN24/metrics-discovery/vendor/github.com/aws/aws-sdk-go/service/sts",
 			"path": "github.com/aws/aws-sdk-go/service/sts",
-			"revision": "b045cdd68772c8071562f745532fcc3efc9d56af",
-			"revisionTime": "2016-08-10T00:29:32Z"
+			"revision": "4590e9b51cd6698144a025a75608fa7a90752d5d",
+			"revisionTime": "2017-02-03T07:15:09Z"
 		},
 		{
 			"checksumSHA1": "FCeEm2BWZV/n4oTy+SGd/k0Ab5c=",
 			"origin": "github.com/aws/aws-sdk-go/vendor/github.com/go-ini/ini",
 			"path": "github.com/go-ini/ini",
-			"revision": "b045cdd68772c8071562f745532fcc3efc9d56af",
-			"revisionTime": "2016-08-10T00:29:32Z"
+			"revision": "4590e9b51cd6698144a025a75608fa7a90752d5d",
+			"revisionTime": "2017-02-03T07:15:09Z"
 		},
 		{
 			"checksumSHA1": "0ZrwvB6KoGPj2PoDNSEJwxQ6Mog=",
 			"origin": "github.com/aws/aws-sdk-go/vendor/github.com/jmespath/go-jmespath",
 			"path": "github.com/jmespath/go-jmespath",
-			"revision": "b045cdd68772c8071562f745532fcc3efc9d56af",
-			"revisionTime": "2016-08-10T00:29:32Z"
+			"revision": "4590e9b51cd6698144a025a75608fa7a90752d5d",
+			"revisionTime": "2017-02-03T07:15:09Z"
 		}
 	],
 	"rootPath": "github.com/WeltN24/metrics-discovery"
