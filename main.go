@@ -204,6 +204,7 @@ func getAllElasticLoadBalancers(elbCli interface {
 
 func getAllApplicationLoadBalancers(albCli interface {
 	DescribeLoadBalancers(*elbv2.DescribeLoadBalancersInput) (*elbv2.DescribeLoadBalancersOutput, error)
+	DescribeTargetGroups(*elbv2.DescribeTargetGroupsInput) (*elbv2.DescribeTargetGroupsOutput, error)
 }) ([]map[string]string, error) {
 
 	resp, err := albCli.DescribeLoadBalancers(&elbv2.DescribeLoadBalancersInput{})
@@ -212,15 +213,46 @@ func getAllApplicationLoadBalancers(albCli interface {
 		return nil, fmt.Errorf("reading ALBs:%v", err)
 	}
 
-	albs := make([]map[string]string, len(resp.LoadBalancers))
+	var albTargetGroups []map[string]string
 
-	for ctr, alb := range resp.LoadBalancers {
-		albs[ctr] = map[string]string{
-			"{#LOADBALANCERNAME}": *alb.LoadBalancerName,
+	i := 0
+	for _, alb := range resp.LoadBalancers {
+		tgs, err := getTargetGroups(albCli, *alb.LoadBalancerArn)
+
+		if err != nil {
+			return nil, fmt.Errorf("reading ALB target groups:%v", err)
+		}
+		for _, tg := range tgs {
+			albTargetGroups = append(albTargetGroups, map[string]string{
+				"{#LOADBALANCERNAME}": *alb.LoadBalancerName,
+				"{#TARGEGROUP}":       tg,
+			})
+			i = i + 1
 		}
 	}
 
-	return albs, nil
+	return albTargetGroups, nil
+}
+
+func getTargetGroups(albCli interface {
+	DescribeTargetGroups(*elbv2.DescribeTargetGroupsInput) (*elbv2.DescribeTargetGroupsOutput, error)
+}, albArn string) ([]string, error) {
+
+	resp, err := albCli.DescribeTargetGroups(&elbv2.DescribeTargetGroupsInput{
+		LoadBalancerArn: aws.String(albArn),
+	})
+
+	if err != nil {
+		return nil, fmt.Errorf("reading ALBs:%v", err)
+	}
+
+	targetGroups := make([]string, len(resp.TargetGroups))
+
+	for ctr, tg := range resp.TargetGroups {
+		targetGroups[ctr] = *tg.TargetGroupName
+	}
+
+	return targetGroups, nil
 }
 
 func listECSClusters(ecsCli interface {
