@@ -16,6 +16,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/ecs"
 	"github.com/aws/aws-sdk-go/service/elb"
 	"github.com/aws/aws-sdk-go/service/elbv2"
+	"github.com/aws/aws-sdk-go/service/iam"
 	"github.com/aws/aws-sdk-go/service/lambda"
 	"github.com/aws/aws-sdk-go/service/rds"
 	"github.com/aws/aws-sdk-go/service/sqs"
@@ -87,6 +88,11 @@ func main() {
 		list, err = getAllAPIGateways(apigateway.New(awsSession))
 		if err != nil {
 			log.Fatalf("Could not get API Gateways")
+		}
+	case "IAMUser":
+		list, err = getAllIAMUsers(iam.New(awsSession))
+		if err != nil {
+			log.Fatalf("Could not get IAM users")
 		}
 	default:
 		log.Fatalf("discovery type %s not supported", *discoveryType)
@@ -377,4 +383,22 @@ func getAllAPIGateways(apiCli interface {
 	}
 
 	return apiKeys, nil
+}
+
+func getAllIAMUsers(apiCli interface {
+	ListUsers(*iam.ListUsersInput) (*iam.ListUsersOutput, error)
+}) ([]map[string]string, error) {
+	resp, err := apiCli.ListUsers(&iam.ListUsersInput{})
+
+	if err != nil {
+		return nil, fmt.Errorf("listing iam users %v", err)
+	}
+
+	users := make([]map[string]string, 0, len(resp.Users))
+
+	for _, user := range resp.Users {
+		users = append(users, map[string]string{"{#USER}": *user.UserName})
+	}
+
+	return users, nil
 }
