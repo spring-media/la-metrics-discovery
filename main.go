@@ -20,6 +20,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/lambda"
 	"github.com/aws/aws-sdk-go/service/rds"
 	"github.com/aws/aws-sdk-go/service/sqs"
+	"github.com/aws/aws-sdk-go/service/support"
 )
 
 type Result struct {
@@ -93,6 +94,11 @@ func main() {
 		list, err = getAllIAMUsers(iam.New(awsSession))
 		if err != nil {
 			log.Fatalf("Could not get IAM users")
+		}
+	case "TrustedAdvisor":
+		list, err = getAllTrustedAdvisorChecks(support.New(awsSession))
+		if err != nil {
+			log.Fatalf("Could not get trusted advisor checks")
 		}
 	default:
 		log.Fatalf("discovery type %s not supported", *discoveryType)
@@ -401,4 +407,23 @@ func getAllIAMUsers(apiCli interface {
 	}
 
 	return users, nil
+}
+
+func getAllTrustedAdvisorChecks(apiCli interface {
+	DescribeTrustedAdvisorChecks(*support.DescribeTrustedAdvisorChecksInput) (*support.DescribeTrustedAdvisorChecksOutput, error)
+}) ([]map[string]string, error) {
+	resp, err := apiCli.DescribeTrustedAdvisorChecks(&support.DescribeTrustedAdvisorChecksInput{
+		Language: aws.String("en"),
+	})
+
+	if err != nil {
+		return nil, err
+	}
+
+	checks := make([]map[string]string, 0, len(resp.Checks))
+	for _, check := range resp.Checks {
+		checks = append(checks, map[string]string{"{#CHECK_ID}": *check.Id, "{#CHECK_NAME}": *check.Name})
+	}
+
+	return checks, nil
 }
