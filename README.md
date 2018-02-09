@@ -42,4 +42,4 @@ Can be used in a monitoring systems like nagios or zabbix to discover items on a
 
 #### Discover Checks in Trusted Advisor
 	
-	metrics-discovery -aws.region us-east-1 -type AWS/TrustedAdvisor
+	metrics-discovery -aws.region us-east-1 -type TrustedAdvisor
