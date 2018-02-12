@@ -184,9 +184,11 @@ func getAllCloudFrontDistributions(cloudFrontCli interface {
 	dists := make([]map[string]string, len(resp.DistributionList.Items))
 
 	for ctr, dist := range resp.DistributionList.Items {
-		dists[ctr] = map[string]string{
-			"{#DISTID}":    *dist.Id,
-			"{#DISTALIAS}": *dist.Aliases.Items[0],
+		if len(dist.Aliases.Items) > 0 {
+			dists[ctr] = map[string]string{
+				"{#DISTID}":    *dist.Id,
+				"{#DISTALIAS}": *dist.Aliases.Items[0],
+			}
 		}
 	}
 
