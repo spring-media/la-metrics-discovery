@@ -39,3 +39,7 @@ Can be used in a monitoring systems like nagios or zabbix to discover items on a
 #### Discover Services running on ECS
 	
 	metrics-discovery -aws.region eu-central-1 -type ECSServices
+
+#### Discover Checks in Trusted Advisor
+	
+	metrics-discovery -aws.region us-east-1 -type TrustedAdvisor
